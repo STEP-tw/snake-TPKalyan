@@ -19,18 +19,18 @@ const positionOnBoard = function(position){
   return (position.x < numberOfCols && position.x >= 0 ) && ( position.y >= 0 && position.y < numberOfRows);
 }
 
-const headHitsBody = function(){
-  let nextPos = snake.head.next();
-  return snake.body.some((position)=>nextPos.isSameCoordAs(position));
+const doesHeadHitsBody = function(){
+  let head = snake.getHead();
+  return snake.body.some((position)=>head.isSameCoordAs(position));
 }
 
-const snakeHitsWall = function(){
-  let nextPos = snake.head.next();
+const doesSnakeHitsWall = function(){
+  let nextPos = snake.getHead().next();
   return (!positionOnBoard(nextPos));
 }
 
 const isGameOver = function(){
-  return headHitsBody() || snakeHitsWall();
+  return doesHeadHitsBody() || doesSnakeHitsWall();
 }
 
 const animateSnake=function() {
