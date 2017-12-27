@@ -15,8 +15,14 @@ const offerPlayAgain = function(){
   display.appendChild(button);
 }
 
+const isInBetween = function(value,min,max){
+  return value > min && value < max
+}
+
 const positionOnBoard = function(position){
-  return (position.x < numberOfCols && position.x >= 0 ) && ( position.y >= 0 && position.y < numberOfRows);
+  let xCoOrd = position.x;
+  let yCoOrd = position.y;
+  return (isInBetween(xCoOrd,-1,numberOfCols)  &&  isInBetween(yCoOrd,-1,numberOfRows));
 }
 
 const doesHeadHitsBody = function(){

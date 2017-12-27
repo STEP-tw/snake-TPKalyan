@@ -27,7 +27,9 @@
 
 .center {
     position: absolute;
-    right: 50%;
+    width: 6%;
+    right: 47%;
+
     padding: 10px;
     margin-top: 5px;
 }
