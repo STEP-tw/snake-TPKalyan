@@ -5,17 +5,21 @@ let numberOfCols=120;
 
 let animator=undefined;
 
+const positionOnBoard = function(position){
+  return (position.x < numberOfCols && position.x >= 0 ) && ( position.y >= 0 && position.y < numberOfRows);
+}
+
 const headHitsBody = function(){
   let nextPos = snake.head.next();
   return snake.body.some((position)=>nextPos.isSameCoordAs(position));
 }
 
+const snakeHitsWall = function(){
+  let nextPos = snake.head.next();
+  return (!positionOnBoard(nextPos));
+}
+
 const animateSnake=function() {
-  if(headHitsBody()){
-    console.log("game over");
-    clearInterval(animator);
-    return;
-  }
   let oldHead=snake.getHead();
   let oldTail=snake.move();
   let head=snake.getHead();
@@ -26,6 +30,17 @@ const animateSnake=function() {
     snake.grow();
     createFood(numberOfRows,numberOfCols);
     drawFood(food);
+    return ;
+  }
+  if(headHitsBody()){
+    console.log("game over");
+    clearInterval(animator);
+    return ;
+  }
+  if(snakeHitsWall()){
+    console.log("game over");
+    clearInterval(animator);
+    return ;
   }
 }
 
