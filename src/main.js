@@ -5,6 +5,16 @@ let numberOfCols=120;
 
 let animator=undefined;
 
+const offerPlayAgain = function(){
+  let display = document.getElementById('hidden_tail');
+  let button = document.createElement('input');
+  button.type = 'button';
+  button.onclick = reset;
+  button.className = 'center'
+  button.value = 'Play again!';
+  display.appendChild(button);
+}
+
 const positionOnBoard = function(position){
   return (position.x < numberOfCols && position.x >= 0 ) && ( position.y >= 0 && position.y < numberOfRows);
 }
@@ -17,6 +27,10 @@ const headHitsBody = function(){
 const snakeHitsWall = function(){
   let nextPos = snake.head.next();
   return (!positionOnBoard(nextPos));
+}
+
+const isGameOver = function(){
+  return headHitsBody() || snakeHitsWall();
 }
 
 const animateSnake=function() {
@@ -32,14 +46,9 @@ const animateSnake=function() {
     drawFood(food);
     return ;
   }
-  if(headHitsBody()){
-    console.log("game over");
+  if(isGameOver()){
     clearInterval(animator);
-    return ;
-  }
-  if(snakeHitsWall()){
-    console.log("game over");
-    clearInterval(animator);
+    offerPlayAgain()
     return ;
   }
 }
