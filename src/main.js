@@ -5,7 +5,17 @@ let numberOfCols=120;
 
 let animator=undefined;
 
+const headHitsBody = function(){
+  let nextPos = snake.head.next();
+  return snake.body.some((position)=>nextPos.isSameCoordAs(position));
+}
+
 const animateSnake=function() {
+  if(headHitsBody()){
+    console.log("game over");
+    clearInterval(animator);
+    return;
+  }
   let oldHead=snake.getHead();
   let oldTail=snake.move();
   let head=snake.getHead();
